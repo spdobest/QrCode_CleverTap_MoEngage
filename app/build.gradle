@@ -59,7 +59,7 @@ dependencies {
     compile 'com.android.support:design:26.0.0-alpha1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 //      compile files('libs/zxing-2.1.jar')
-
+    compile 'com.google.android.gms:play-services-vision:9.6.1'
     //
     //add this dependency
     compile 'com.journeyapps:zxing-android-embedded:3.4.0'

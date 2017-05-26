@@ -40,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements LoginDialogFragment.LoginDialogDismissListener{
 
     private static final String TAG = "MainActivity";
 
@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity {
     //qr code scanner object
     private IntentIntegrator qrScan;
 
-    private SharedPreferences permissionStatus;
+    private SharedPreferences preferenceUserData;
     private static final int REQUEST_PERMISSION_SETTING = 101;
     private boolean sentToSettings = false;
 
@@ -76,31 +76,36 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        if (!hasPermissions(this, PERMISSIONS)) {
-            ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_ID_MULTIPLE_PERMISSIONS);
-        }
+        ButterKnife.bind(this);
 
         setTitle("IPartner");
 
         //intializing scan object
         qrScan = new IntentIntegrator(this);
 
-        ButterKnife.bind(this);
+        preferenceUserData = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        userId = preferenceUserData.getString("userName", "");
+        password = preferenceUserData.getString("password", "");
 
-        permissionStatus = getSharedPreferences("permissionStatus", MODE_PRIVATE);
+        if (!TextUtils.isEmpty(userId)) {
 
-        checkRuntimePermission();
-
-        LoginDialogFragment.newInstance(MainActivity.this).show(getSupportFragmentManager(), LoginDialogFragment.TAG);
-
-        SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        userId = prefs.getString("userName", "");
-        password = prefs.getString("password", "");
-
-        if (!TextUtils.isEmpty(userId))
             textViewUserName.setText("UserName : " + userId);
+
+        }
+        else{
+            LoginDialogFragment.newInstance(MainActivity.this).show(getSupportFragmentManager(), LoginDialogFragment.TAG);
+        }
+
+      //  checkRuntimePermission();
+
+        if (!hasPermissions(this, PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_ID_MULTIPLE_PERMISSIONS);
+        }
+        else{
+            if(!TextUtils.isEmpty(userId)){
+                generateQrCode(userId,password);
+            }
+        }
 
     }
 
@@ -126,10 +131,10 @@ public class MainActivity extends BaseActivity {
                     boolean showRationale = false;
 
 
-                    boolean ExternalStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean externalStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean PhonestateAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
-                    if (!ExternalStorageAccepted) {
+                    if (!externalStorageAccepted) {
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             showRationale = shouldShowRequestPermissionRationale(permissions[0]);
@@ -149,7 +154,7 @@ public class MainActivity extends BaseActivity {
                     } else if (!PhonestateAccepted) {
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            showRationale = shouldShowRequestPermissionRationale(permissions[2]);
+                            showRationale = shouldShowRequestPermissionRationale(permissions[1]);
                         }
 
                         if (!showRationale) {
@@ -244,7 +249,7 @@ public class MainActivity extends BaseActivity {
                     }
                 });
                 builder.show();
-            } else if (permissionStatus.getBoolean(Manifest.permission.READ_PHONE_STATE, false)) {
+            } else if (preferenceUserData.getBoolean(Manifest.permission.READ_PHONE_STATE, false)) {
                 //Previously Permission Request was cancelled with 'Dont Ask Again',
                 // Redirect to Settings after showing Information about why you need the permission
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -274,7 +279,7 @@ public class MainActivity extends BaseActivity {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATE_PERMISSION_CONSTANT);
             }
 
-            SharedPreferences.Editor editor = permissionStatus.edit();
+            SharedPreferences.Editor editor = preferenceUserData.edit();
             editor.putBoolean(Manifest.permission.READ_PHONE_STATE, true);
             editor.commit();
 
@@ -365,7 +370,7 @@ public class MainActivity extends BaseActivity {
                         //that means the encoded format not matches
                         //in this case you can display whatever data is available on the qrcode
                         //to a toast
-                        Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, /*result.getContents()*/"Error "+e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             } else {
@@ -444,5 +449,12 @@ public class MainActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onLoginDialogDismiss() {
+        userId = preferenceUserData.getString("userName", "");
+        password = preferenceUserData.getString("password", "");
+        generateQrCode(userId,password);
     }
 }

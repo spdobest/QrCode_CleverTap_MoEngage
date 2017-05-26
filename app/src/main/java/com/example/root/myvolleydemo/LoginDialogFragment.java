@@ -1,6 +1,5 @@
 package com.example.root.myvolleydemo;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -58,6 +56,8 @@ public class LoginDialogFragment extends DialogFragment {
 
     boolean isLoginSuccess = false;
 
+    LoginDialogDismissListener loginDialogDismissListener;
+
     public static LoginDialogFragment newInstance(Context mcontext) {
         LoginDialogFragment mLoginDialogFragment = new LoginDialogFragment();
         Bundle bundle = new Bundle();
@@ -68,6 +68,12 @@ public class LoginDialogFragment extends DialogFragment {
         }
         mLoginDialogFragment.setArguments(bundle);
         return mLoginDialogFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        loginDialogDismissListener = (LoginDialogDismissListener) context;
     }
 
     @Override
@@ -195,11 +201,19 @@ public class LoginDialogFragment extends DialogFragment {
             e.printStackTrace();
         }
     }
+
     @Override
     public void onDismiss(final DialogInterface dialog) {
         super.onDismiss(dialog);
-            if(!isLoginSuccess)
-                getActivity().finish();
+        if (!isLoginSuccess)
+            getActivity().finish();
+        else
+            loginDialogDismissListener.onLoginDialogDismiss();
 
     }
+
+    interface LoginDialogDismissListener {
+        void onLoginDialogDismiss();
+    }
+
 }

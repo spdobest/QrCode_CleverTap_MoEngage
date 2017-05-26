@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.root.myvolleydemo.MainActivity">
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        android:textSize="25sp"
+        android:gravity="center"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textViewUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="userName"
+        android:textSize="20sp"
+        android:textColor="@color/blue"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/buttonLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:layout_marginTop="20dp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textColor="@color/red"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/buttonGenerateQrCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Generate QR Code"
+        style="@style/Widget.AppCompat.ActionButton.CloseMode"
+        android:textColor="@color/blue"
+        android:gravity="center"
+        />
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/buttonScanQrCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Scan QR Code"
+        style="@style/Widget.AppCompat.ActionButton.CloseMode"
+        android:textColor="@color/blue"
+        android:gravity="center"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d3d3d3"
+        android:layout_marginBottom="10dp"
+        />
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imageViewQrCode"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        />
+
+</LinearLayout>

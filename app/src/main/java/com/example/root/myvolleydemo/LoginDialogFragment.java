@@ -10,22 +10,28 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.root.myvolleydemo.customview.CustomTextView;
 import com.example.root.myvolleydemo.model.LoginModel;
 import com.example.root.myvolleydemo.net.CustomVolleyPostRequestWithTextPlain;
 import com.example.root.myvolleydemo.util.VolleyUtil;
@@ -41,22 +47,33 @@ import butterknife.OnClick;
 public class LoginDialogFragment extends DialogFragment {
 
     public static final String TAG = "LoginDialogFragment";
-    @BindView(R.id.edittextEmail)
-    AppCompatEditText edittextEmail;
-    @BindView(R.id.edittextPassword)
-    AppCompatEditText edittextPassword;
-    @BindView(R.id.buttonLogin)
-    AppCompatButton buttonLogin;
-    @BindView(R.id.tilEmail)
-    TextInputLayout tilEmail;
-    @BindView(R.id.tilPassword)
-    TextInputLayout tilPassword;
-    @BindView(R.id.linearRootLoginDialog)
-    LinearLayout linearRootLoginDialog;
+
 
     boolean isLoginSuccess = false;
 
     LoginDialogDismissListener loginDialogDismissListener;
+    @BindView(R.id.img_close)
+    ImageView imgClose;
+    @BindView(R.id.layout_header)
+    LinearLayout layoutHeader;
+
+    @BindView(R.id.txt_client_id)
+    CustomTextView txtClientId;
+
+    @BindView(R.id.txt_password)
+    CustomTextView txtPassword;
+    @BindView(R.id.txt_help)
+    CustomTextView txtHelp;
+    @BindView(R.id.txt_help_tag)
+    TextView txtHelpTag;
+    @BindView(R.id.buttonLogin)
+    Button buttonLogin;
+    @BindView(R.id.linearRootLoginDialog)
+    ScrollView linearRootLoginDialog;
+    @BindView(R.id.edittextEmail)
+    AppCompatEditText edittextEmail;
+    @BindView(R.id.edittextPassword)
+    AppCompatEditText edittextPassword;
 
     public static LoginDialogFragment newInstance(Context mcontext) {
         LoginDialogFragment mLoginDialogFragment = new LoginDialogFragment();
@@ -103,6 +120,11 @@ public class LoginDialogFragment extends DialogFragment {
             edittextEmail.setText(userName);
         if (!TextUtils.isEmpty(password))
             edittextPassword.setText(password);
+
+        //Ram Prakash Changes
+        txtClientId.setText(Html.fromHtml("\u0059"));
+        txtPassword.setText(Html.fromHtml("\u005A"));
+        txtHelp.setText(Html.fromHtml("\u0038"));
     }
 
 
@@ -211,6 +233,7 @@ public class LoginDialogFragment extends DialogFragment {
             loginDialogDismissListener.onLoginDialogDismiss();
 
     }
+
 
     interface LoginDialogDismissListener {
         void onLoginDialogDismiss();

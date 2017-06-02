@@ -28,10 +28,13 @@ public class SendMobileNumberIntentService extends IntentService {
 
     private static final String TAG = "IntentService";
     public static final String KEY_PHONE_NUMBER = "phoneNumber";
+    public static final String KEY_IS_APICALLED = "isAPicalled";
 
     String url = "http://api.androidhive.info/volley/person_object.json";
 
     String phoneNumber;
+
+    boolean isAPiCalled   ;
 
     public SendMobileNumberIntentService() {
         super("Name for Service");
@@ -40,18 +43,22 @@ public class SendMobileNumberIntentService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
-        if(intent.hasExtra(KEY_PHONE_NUMBER)) {
+        if (intent.hasExtra(KEY_PHONE_NUMBER)) {
 
             phoneNumber = intent.getStringExtra(KEY_PHONE_NUMBER);
+        //    isAPiCalled = intent.getBooleanExtra(KEY_IS_APICALLED,false);
             Log.i(TAG, "onHandleIntent: " + phoneNumber);
         }
-        if(!TextUtils.isEmpty(phoneNumber)) {
+        if (!TextUtils.isEmpty(phoneNumber)) {
             SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
             String userName = prefs.getString("userName", "");
-            sendMobileNumberWithUserId(userName, phoneNumber);
+
+            if (!isAPiCalled)
+                sendMobileNumberWithUserId(userName, phoneNumber);
+
             Toast.makeText(this, "Number " + phoneNumber, Toast.LENGTH_SHORT).show();
         }
-      //  callApi();
+        //  callApi();
         // TODO: 5/24/17 call web service
     }
 
@@ -79,14 +86,16 @@ public class SendMobileNumberIntentService extends IntentService {
 
     private void sendMobileNumberWithUserId(final String userName, String mobilenUMBER) {
 
-        String url = "http://sb.angelbackoffice.com:8088/SB_Reg.svc/Service_SignalR?userId="+userName+"&mob="+mobilenUMBER;
+        String url = "http://sb.angelbackoffice.com:8088/SB_Reg.svc/Service_SignalR?userId=" + userName + "&mob=" + mobilenUMBER;
 // http://sb.angelbackoffice.com:8088/SB_Reg.svc/Service_SignalR?userId=E58488&mob=8097479830
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("userId", userName);
             jsonObject.put("mob", mobilenUMBER);
 
-            Log.i(TAG, "sendMobileNumberWithUserId: "+jsonObject.toString());
+            Log.i(TAG, "sendMobileNumberWithUserId: " + jsonObject.toString());
+
+            isAPiCalled = true;
 
             CustomVolleyPostRequestWithTextPlain jsonObjectRequest =
                     new CustomVolleyPostRequestWithTextPlain(
@@ -101,7 +110,7 @@ public class SendMobileNumberIntentService extends IntentService {
 
                                     Log.i(TAG, "onResponse: " + response);
 
-                                    Toast.makeText(SendMobileNumberIntentService.this, "Response is "+response.toString(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SendMobileNumberIntentService.this, "Response is " + response.toString(), Toast.LENGTH_SHORT).show();
 
                                 }
                             }, new Response.ErrorListener() {

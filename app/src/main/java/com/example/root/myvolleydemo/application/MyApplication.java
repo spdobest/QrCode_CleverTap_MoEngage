@@ -15,6 +15,6 @@ public class MyApplication extends Application{
         super.onCreate();
 
         CleverTapManager.getInstance(getApplicationContext());
-        MoEngageManager.getInstance(getApplicationContext());
+       // MoEngageManager.getInstance(getApplicationContext());
     }
 }

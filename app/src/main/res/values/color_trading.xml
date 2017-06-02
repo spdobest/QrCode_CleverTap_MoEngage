@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#087bcd</color>-->
+    <color name="colorListHeader">#1B2D3B</color>
+    <color name="colorStockName">#232323</color>
+    <color name="colorBuyFrame">#014880</color>
+    <color name="colorSellRed">#ff0000</color>
+    <color name="color_submit_blue">#01579B</color>
+    <color name="color_view_separator">#cacaca</color>
+    <color name="color_order_review">#7c7c7c</color>
+    <color name="color_button_background">#243d50</color>
+    <color name="color_edittext_background">#cacaca</color>
+    <color name="color_quantity_background">#cccccc</color>
+    <color name="color_quantity_text">#6d6d6d</color>
+    <color name="color_quantity_cursor">#01579b</color>
+    <color name="color_buysell_text">#757575</color>
+    <color name="color_buysell_selltext">#ea2a2a</color>
+    <color name="color_text_gray">#cac9c9</color>
+    <color name="color_watchlist_line">#568fbc</color>
+    <color name="color_nifty_background">#f2f6fa</color>
+
+
+    <color name="place_buy">#01579B</color>
+    <color name="place_sell">#FF0000</color>
+    <color name="quotes_row_bg">#F2F2FF</color>
+    <color name="nifty_bg">#f2f6fa</color>
+    <color name="quote_text">#474747</color>
+    <color name="search_line">#cacaca</color>
+    <color name="watchlist_title_text">#232323</color>
+    <color name="seekbar_color">#9d9d9d</color>
+</resources>

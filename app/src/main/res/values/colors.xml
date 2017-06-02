@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#e53935</color>
+
+    <color name="colorPrimary">#1782CC</color>
+    <color name="colorPrimaryDark">#0367AC</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--<color name="colorPrimary">#e53935</color>
     <color name="colorPrimaryDark">#D32F2f</color>
-    <color name="colorAccent">#880e4f</color>
+    <color name="colorAccent">#880e4f</color>-->
     <color name="red">#ff0000</color>
     <color name="blue">#00ff00</color>
+
+    <color name="blue_A750">#033c69</color>
+
+
+    <color name="defaultColorPrimary">#1782CC</color>
+    <color name="defaultColorPrimaryDark">#0367AC</color>
+
+    <color name="text_selected">#888</color>
+
+    <color name="green_A750">#059830</color>
+
+
+    <color name="blue_heading">#1882cc</color>
+
+    <color name="color_equity">#5B9BD5</color>
+    <color name="color_debt">#A5A5A5</color>
+    <color name="color_gold">#ED7D31</color>
+
+    <color name="color_red">@color/red_300</color>
+
+    <color name="color_logout">@color/red_200</color>
+
+
+    <!--    custom search view colors-->
+
+    <color name="searchbox_text_color">#000000</color>
+    <color name="searchbox_background_color">#ffffff</color>
+    <color name="searchbox_hint_text_color">#a4a4a4</color>
+    <color name="searchbox_icon_tint">#a4a4a4</color>
+    <color name="search_shortcut_background_color">#b6b6b6</color>
+    <color name="search_shortcut_icon_color">#f8f8f8</color>
+    <color name="default_color_expanded">#F0F0F0</color>
+
+    <color name="green">#22B24C</color>
+    <color name="yellow">#FFCB08</color>
+
+    <color name="text_blue">#0A7EC4</color>
+
 </resources>

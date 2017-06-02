@@ -1,16 +1,7 @@
 package com.example.root.myvolleydemo.util;
 
-import android.app.Activity;
-import android.content.Context;
-
-import com.moe.pushlibrary.MoEHelper;
-import com.moe.pushlibrary.PayloadBuilder;
-
-import java.util.Date;
-
-
 public class MoEngageManager {
-    private static MoEHelper moEHelper;
+    /*private static MoEHelper moEHelper;
 
     public static MoEHelper getInstance(final Activity context){
         if(moEHelper==null){
@@ -216,5 +207,5 @@ public class MoEngageManager {
         public static final String MONTHLY_EMI_HOMELOAN = "monthlyEmiHomeLoan";
         public static final String MONTHLY_EMI_EDUCATIONLOAN= "monthlyEmiEeducationLoan";
         public static final String MONTHLY_EMI_OTHER = "monthlyEmiOther";
-    }
+    }*/
 }

@@ -15,43 +15,44 @@ import com.moe.pushlibrary.MoEHelper;
 
 public class BaseActivity extends AppCompatActivity {
     private static final String TAG = "BaseActivity";
-    private MoEHelper mHelper;
+ //   private MoEHelper mHelper;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate: ");
-        mHelper = MoEHelper.getInstance(this);
+    //    mHelper = MoEHelper.getInstance(this)
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mHelper.onStart(this);
+//        mHelper.onStart(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.i(TAG, "onPause: ");
+        Intent intentService = new Intent(getApplicationContext(), SendMobileNumberIntentService.class);
+        startService(intentService);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mHelper.onSaveInstanceState(outState);
+       // mHelper.onSaveInstanceState(outState);
     }
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mHelper.onRestoreInstanceState(savedInstanceState);
+     //   mHelper.onRestoreInstanceState(savedInstanceState);
     }
     @Override
     protected void onStop() {
         super.onStop();
         Log.i(TAG, "onStop: ");
-        mHelper.onStop(this);
-        Intent intentService = new Intent(getApplicationContext(), SendMobileNumberIntentService.class);
-        startService(intentService);
+       // mHelper.onStop(this);
+
     }
 
     @Override
@@ -64,6 +65,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume: ");
-        mHelper.onResume(this);
+//        mHelper.onResume(this);
     }
 }

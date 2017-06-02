@@ -23,7 +23,7 @@ public class PhoneStateReceiver extends BroadcastReceiver {
             String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
             String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
 
-            Log.i(TAG, "onReceive: "+incomingNumber);
+            Log.i(TAG, "onReceive: " + incomingNumber);
 
 
 
@@ -32,18 +32,22 @@ public class PhoneStateReceiver extends BroadcastReceiver {
 
             }*/
 
-            TelephonyManager telephony = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-            telephony.listen(new PhoneStateListener(){
+            TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            telephony.listen(new PhoneStateListener() {
                 @Override
                 public void onCallStateChanged(int state, String incomingNumber) {
                     super.onCallStateChanged(state, incomingNumber);
 
-                    switch (state){
-                        case TelephonyManager.CALL_STATE_RINGING :
-                            System.out.println("incomingNumber : "+incomingNumber);
-                            if(!TextUtils.isEmpty(incomingNumber)) {
+                    Toast.makeText(context, "My Number "+incomingNumber, Toast.LENGTH_SHORT).show();
+
+                    switch (state) {
+
+                        case TelephonyManager.CALL_STATE_RINGING:
+                            System.out.println("incomingNumber : " + incomingNumber);
+                            if (!TextUtils.isEmpty(incomingNumber)) {
                                 Intent intentService = new Intent(context, SendMobileNumberIntentService.class);
                                 intentService.putExtra(SendMobileNumberIntentService.KEY_PHONE_NUMBER, incomingNumber);
+                                intentService.putExtra(SendMobileNumberIntentService.KEY_IS_APICALLED, false);
                                 context.startService(intentService);
                             }
                             break;
@@ -51,11 +55,10 @@ public class PhoneStateReceiver extends BroadcastReceiver {
 
 
                 }
-            },PhoneStateListener.LISTEN_CALL_STATE);
+            }, PhoneStateListener.LISTEN_CALL_STATE);
 
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

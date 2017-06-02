@@ -87,6 +87,8 @@ public class MainActivity extends BaseActivity implements LoginDialogFragment.Lo
         userId = preferenceUserData.getString("userName", "");
         password = preferenceUserData.getString("password", "");
 
+//        startActivity(new Intent(this,SeekBarAndGraphActivity.class));
+
         if (!TextUtils.isEmpty(userId)) {
 
             textViewUserName.setText("UserName : " + userId);
